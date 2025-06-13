@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Task Form</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #dff9fb, #c7ecee);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            min-height: 100vh;
+        }
+
+        h2 {
+            color: #2d3436;
+            font-size: 28px;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.6);
+        }
+
+        form {
+            backdrop-filter: blur(15px);
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 500px;
+            transition: all 0.3s ease;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #2f3640;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="date"] {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #dcdde1;
+            border-radius: 12px;
+            font-size: 15px;
+            background-color: #fdfefe;
+            transition: border 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus {
+            outline: none;
+            border-color: #00a8ff;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-size: 15px;
+            color: #2f3640;
+        }
+
+        button {
+            background: linear-gradient(145deg, #6c5ce7, #a29bfe);
+            color: white;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(108, 92, 231, 0.4);
+            transition: background 0.3s ease, transform 0.2s;
+        }
+
+        button:hover {
+            background: linear-gradient(145deg, #5e54c7, #8e8df0);
+            transform: translateY(-1px);
+        }
+
+        a {
+            margin-top: 20px;
+            color: #0984e3;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Add Task</h2>
+
+    <form th:action="@{/task/save}" th:object="${task}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="title">Title</label>
+        <input type="text" id="title" th:field="*{title}" placeholder="e.g., Complete homework" required />
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="completed" th:field="*{completed}" />
+            <label for="completed">Completed</label>
+        </div>
+
+        <label for="dueDate">Due Date</label>
+        <input type="date" id="dueDate" th:field="*{dueDate}" required />
+
+        <button type="submit">Save Task</button>
+    </form>
+
+    <a href="/task/all">← Back to Task List</a>
+
+</body>
+</html>

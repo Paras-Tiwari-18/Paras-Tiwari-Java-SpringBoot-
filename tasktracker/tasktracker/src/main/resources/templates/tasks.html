@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Tasks</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #e0f7fa, #fefefe);
+            color: #2d3436;
+            padding: 50px 20px;
+        }
+
+        h1 {
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #34495e;
+        }
+
+        .button-link {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: #3498db;
+            color: white;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-link:hover {
+            background-color: #2980b9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #ecf0f1;
+            color: #2f3640;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        td a {
+            margin-right: 12px;
+            text-decoration: none;
+            font-weight: 500;
+            color: #0984e3;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-completed {
+            background-color: #dff9fb;
+            color: #10ac84;
+            border: 1px solid #10ac84;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #e67e22;
+            border: 1px solid #e67e22;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Task List</h1>
+    
+    <a href="/task/form" class="button-link">Add New Task</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Task</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="t : ${tasks}">
+                <td th:text="${t.id}">1</td>
+                <td th:text="${t.title}">Sample Task</td>
+                <td>
+                    <span th:classappend="${t.completed} ? 'status-badge status-completed' : 'status-badge status-pending'"
+                          th:text="${t.completed} ? 'Completed' : 'Pending'">Pending</span>
+                </td>
+                <td>
+                    <a th:href="@{'/task/update/' + ${t.id}}"> Edit</a>
+                    <a th:href="@{'/task/delete/' + ${t.id}}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
